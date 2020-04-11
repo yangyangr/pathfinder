@@ -95,6 +95,11 @@ $('td').mouseenter(function() {
     }
 });
 
+$( document ).ready(function() {
+    $('#main').css('display', 'block');
+    $('#loading').css('display', 'none');
+});
+
 function clickCell(cell){
     if(board[$(cell).attr('i')][$(cell).attr('j')] == 'E'){
         board[$(cell).attr('i')][$(cell).attr('j')] = 'X';

@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Pathfinding Algorithm Visualizer"
     />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -32,8 +32,10 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <h2>Pathfinder</h2>
+          <div class="col-md-12">
+              <h2>Pathfinder</h2>
+              <div id="loading"><h2>Loading . . .</h2></div>
+              <div id="main" style="display: none;">
                 <table class="table table-bordered">
                     <tbody>
                     </tbody>
@@ -41,7 +43,8 @@
                 <button class="btn btn-primary" onClick="astar()">A*</button>
                 <button class="btn btn-primary" onClick="bfs()">BFS</button>
                 <button class="btn btn-warning" onClick="clearBoard()" style="float: right;">Clear Board</button>
-            </div>
+              </div>
+          </div>
         </div>
     </div>
     <span id="start"><i class="fas fa-car"></i></span>
