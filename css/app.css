@@ -1,15 +1,17 @@
 table{
     table-layout: fixed;
-  }
-  h2{
-    text-align: center;
-    margin: 10px!important;
-  }
-  .cell{
-    width: 25px;
-    /* background-color: #004ccf; */
-  }
-  
-  .table-bordered td, .table-bordered th{
-    border: 1px solid #4a4a4a !important
-  }
+}
+h2{
+  text-align: center;
+  margin: 10px!important;
+}
+td{
+  padding: 3px !important;
+  width: 25px;
+  height: 25px;
+  /* background-color: #004ccf; */
+}
+
+.table-bordered td, .table-bordered th{
+  border: 1px solid #4a4a4a !important
+}

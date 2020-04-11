@@ -27,11 +27,40 @@ for (let i = 0; i < x; i++) {
     table += '<tr>'+children+'</tr>';
 }
 $('tbody').html(table);
-$('td[i='+start_i+'][j='+start_j+']').css('background-color', '#004ccf');
-$('td[i='+end_i+'][j='+end_j+']').css('background-color', '#00b527');
+$('td[i='+start_i+'][j='+start_j+']').html($('#start'));
+$('td[i='+end_i+'][j='+end_j+']').html($('#end'));
+// $('td[i='+start_i+'][j='+start_j+']').css('background-color', '#004ccf');
+// $('td[i='+start_i+'][j='+start_j+']').attr('id', 'draggable');
+// $('td[i='+end_i+'][j='+end_j+']').css('background-color', '#00b527');
+
+isClickStart = false;
+
+$( "#start" ).draggable({
+    containment: 'table',
+    // snap: 'td',
+    // start: function() {
+    //   isClickStart = true;
+    // },
+    // drag: function() {
+    //   counts[ 1 ]++;
+    //   updateCounterStatus( $drag_counter, counts[ 1 ] );
+    // },
+    stop: function() {
+        isClickStart = true;
+    }
+});
+
+isClickEnd = false;
+
+$( "#end" ).draggable({
+    containment: 'table',
+    stop: function() {
+        isClickEnd = true;
+    }
+});
 
 isMouseDown = false
-$('table').mousedown(function() {
+$('td').mousedown(function() {
     isMouseDown = true;
 })
 .mouseup(function() {
@@ -39,8 +68,31 @@ $('table').mousedown(function() {
 });
 
 $('td').mouseenter(function() {
-    if(isMouseDown)
+    if(isMouseDown){
         clickCell(this);
+    }
+    else if(isClickStart){
+        $(this).html($('#start'));
+        $('#start').css('left', '0px');
+        $('#start').css('top', '0px');
+        isClickStart = false;
+        board[start_i][start_j] = 'E';
+        start_i = parseInt($(this).attr('i'));
+        start_j = parseInt($(this).attr('j'));
+        board[start_i][start_j] = 'S';
+        console.log(board, start_i, start_j);
+    }
+    else if(isClickEnd){
+        $(this).html($('#end'));
+        $('#end').css('left', '0px');
+        $('#end').css('top', '0px');
+        isClickEnd = false;
+        board[end_i][end_j] = 'E';
+        end_i = parseInt($(this).attr('i'));
+        end_j = parseInt($(this).attr('j'));
+        board[end_i][end_j] = 'G';
+        console.log(board, end_i, end_j);
+    }
 });
 
 function clickCell(cell){
@@ -75,8 +127,8 @@ function clearBoard(){
         $(e).css('background-color', 'white');
         $(e).attr('state', '');
     });
-    $('td[i='+start_i+'][j='+start_j+']').css('background-color', '#004ccf');
-    $('td[i='+end_i+'][j='+end_j+']').css('background-color', '#00b527');
+    // $('td[i='+start_i+'][j='+start_j+']').css('background-color', '#004ccf');
+    // $('td[i='+end_i+'][j='+end_j+']').css('background-color', '#00b527');
 }
 
 function clearWay(){
