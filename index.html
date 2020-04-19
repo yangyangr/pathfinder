@@ -40,9 +40,16 @@
                     <tbody>
                     </tbody>
                 </table>
-                <button class="btn btn-primary" onClick="astar()">A*</button>
-                <button class="btn btn-primary" onClick="bfs()">BFS</button>
-                <button class="btn btn-warning" onClick="clearBoard()" style="float: right;">Clear Board</button>
+                <div class="row">
+                  <div class="col-md-12">
+                    <input type="checkbox" class="" id="diagonal" checked>Allow Diagonal</input>
+                  </div>
+                  <div class="col-md-12">
+                    <button class="btn btn-primary" onClick="astar()">A*</button>
+                    <button class="btn btn-primary" onClick="bfs()">BFS</button>
+                    <button class="btn btn-warning" onClick="clearBoard()" style="float: right;">Clear Board</button>
+                  </div>
+                </div>
               </div>
           </div>
         </div>

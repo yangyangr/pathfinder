@@ -69,6 +69,8 @@ $('td').mousedown(function() {
 
 $('td').mouseenter(function() {
     if(isMouseDown){
+        console.log(isClickStart);
+        console.log(isClickEnd);
         clickCell(this);
     }
     else if(isClickStart){
@@ -155,7 +157,12 @@ function bfs(){
     clearWay();
     var new_board = JSON.parse(JSON.stringify(board));
     var q = [[start_i, start_j]];
-    var neighbours = [[-1,0], [0,1], [1,0], [0,-1]];
+    if($('#diagonal').is(':checked')){
+        var neighbours = [[-1,0], [0,1], [1,0], [0,-1], [-1,1], [1,1], [1,-1], [-1,-1]];
+    }
+    else{
+        var neighbours = [[-1,0], [0,1], [1,0], [0,-1]];
+    }
     var found = false;
     while(q.length > 0 && !found){
         var curr = q.shift()
@@ -195,8 +202,12 @@ function astar(){
     var new_board = JSON.parse(JSON.stringify(board));
     // urutan = i, j, f_cost, g_cost
     var open = [[start_i, start_j, 0, 0]];
-    var closed = [];
-    var neighbours = [[-1,0], [0,1], [1,0], [0,-1]];
+    if($('#diagonal').is(':checked')){
+        var neighbours = [[-1,0], [0,1], [1,0], [0,-1], [-1,1], [1,1], [1,-1], [-1,-1]];
+    }
+    else{
+        var neighbours = [[-1,0], [0,1], [1,0], [0,-1]];
+    }
     var found = false;
     while(open.length > 0 && !found){
         var curr = open.pop()
@@ -232,7 +243,7 @@ function astar(){
                     // console.log(i, j, g_cost, h_cost, f_cost);
                     open.push([i,j, f_cost, g_cost]);
                     open = sortOpen(open);
-                    // console.log(open);
+                    console.log(open);
                 }
             }
         }
@@ -245,16 +256,21 @@ function sortOpen(arr){
             // console.log(arr[index-1], arr[index]);
             if(arr[index-1][2] > arr[index][2]){
                 console.log(arr[index-1], arr[index]);
-                arr[index-1] = arr[index];
+                arr.splice(index-1, 1);
                 var cell = $('td[i='+arr[index][0]+'][j='+arr[index][1]+']');
-                $(cell).attr('parent-i', curr[0]);
-                $(cell).attr('parent-j', curr[1]);
-                console.log(arr[index-1], arr[index]);
+                $(cell).attr('parent-i', arr[index][0]);
+                $(cell).attr('parent-j', arr[index][1]);
+                return arr;
             }
             arr.splice(index, 1);
             return arr;
         }
-        if(arr[index-1][2] <= arr[index][2]){
+        if(arr[index-1][2] < arr[index][2]){
+            temp = arr[index];
+            arr[index] = arr[index-1]
+            arr[index-1] = temp;
+        }
+        else if(arr[index-1][2] == arr[index][2] && arr[index-1][3] <= arr[index][3]){
             temp = arr[index];
             arr[index] = arr[index-1]
             arr[index-1] = temp;
