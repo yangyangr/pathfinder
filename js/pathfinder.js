@@ -69,8 +69,8 @@ $('td').mousedown(function() {
 
 $('td').mouseenter(function() {
     if(isMouseDown){
-        console.log(isClickStart);
-        console.log(isClickEnd);
+        // console.log(isClickStart);
+        // console.log(isClickEnd);
         clickCell(this);
     }
     else if(isClickStart){
@@ -234,23 +234,34 @@ function astar(){
                 else if(new_board[i][j] === 'E'){
                     var cell = $('td[i='+i+'][j='+j+']');
                     $(cell).css('background-color', '#bafffc');
-                    $(cell).attr('parent-i', curr[0]);
-                    $(cell).attr('parent-j', curr[1]);
+                    // $(cell).attr('parent-i', curr[0]);
+                    // $(cell).attr('parent-j', curr[1]);
                     $(cell).attr('state', 'checked');
-                    var g_cost = curr[3] + 1;
-                    var h_cost = Math.abs(i - end_i) + Math.abs(j - end_j);
+                    if([[-1,1], [1,1], [1,-1], [-1,-1]].indexOf(neighbour) > -1){
+                        var g_cost = curr[3] + 10;
+                    }
+                    else{
+                        var g_cost = curr[3] + 10;
+                    }
+                    if($('#diagonal').is(':checked')){
+                        // var h_cost = Math.floor(Math.sqrt(Math.pow(i - end_i, 2) + Math.pow(j - end_j, 2))*10);
+                        var h_cost = (Math.abs(i - end_i) + Math.abs(j - end_j)) * 10;
+                    }
+                    else{
+                        var h_cost = (Math.abs(i - end_i) + Math.abs(j - end_j)) * 10;
+                    }
                     var f_cost = g_cost + h_cost;
                     // console.log(i, j, g_cost, h_cost, f_cost);
                     open.push([i,j, f_cost, g_cost]);
-                    open = sortOpen(open);
-                    console.log(open);
+                    open = sortOpen(open, curr);
+                    // console.log(open);
                 }
             }
         }
     }
 }
 
-function sortOpen(arr){
+function sortOpen(arr, curr){
     for (let index = arr.length-1; index > 0; index--) {
         if(arr[index-1][0] == arr[index][0] && arr[index-1][1] == arr[index][1]){
             // console.log(arr[index-1], arr[index]);
@@ -265,19 +276,25 @@ function sortOpen(arr){
             arr.splice(index, 1);
             return arr;
         }
-        if(arr[index-1][2] < arr[index][2]){
+        if(arr[index-1][2] <= arr[index][2]){
             temp = arr[index];
             arr[index] = arr[index-1]
             arr[index-1] = temp;
         }
-        else if(arr[index-1][2] == arr[index][2] && arr[index-1][3] <= arr[index][3]){
-            temp = arr[index];
-            arr[index] = arr[index-1]
-            arr[index-1] = temp;
-        }
+        // else if(arr[index-1][2] == arr[index][2] && arr[index-1][3] <= arr[index][3]){
+        //     temp = arr[index];
+        //     arr[index] = arr[index-1]
+        //     arr[index-1] = temp;
+        // }
         else{
+            var cell = $('td[i='+arr[index][0]+'][j='+arr[index][1]+']');
+            $(cell).attr('parent-i', curr[0]);
+            $(cell).attr('parent-j', curr[1]);
             return arr;
         }
     }
+    var cell = $('td[i='+arr[0][0]+'][j='+arr[0][1]+']');
+    $(cell).attr('parent-i', curr[0]);
+    $(cell).attr('parent-j', curr[1]);
     return arr;
 }
