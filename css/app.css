@@ -12,6 +12,12 @@ td{
   /* background-color: #004ccf; */
 }
 
+.box{
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+
 .table-bordered td, .table-bordered th{
   border: 1px solid #4a4a4a !important
 }

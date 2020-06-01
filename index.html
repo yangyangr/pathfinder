@@ -41,12 +41,23 @@
                     </tbody>
                 </table>
                 <div class="row">
-                  <div class="col-md-12">
-                    <input type="checkbox" class="" id="diagonal" checked>Allow Diagonal</input>
-                  </div>
-                  <div class="col-md-12">
+                  <div class="col-md-3">
+                    <input type="checkbox" class="" id="diagonal" checked>Allow Diagonal</input></br>
                     <button class="btn btn-primary" onClick="astar()">A*</button>
-                    <button class="btn btn-primary" onClick="bfs()">BFS</button>
+                    <button class="btn btn-primary" onClick="bfs()">Breadth First Search</button>
+                  </div>
+                  <div class="col-md-2">
+                    <i class="fas fa-car"></i> = Start (Drag to move)</br>
+                    <i class="fas fa-flag"></i> = End (Drag to move)
+                  </div>
+                  <div class="col-md-2">
+                    <div class="box" style="background-color: #5c5c5c;"></div><span> = Wall</span></br>
+                    <div class="box" style="background-color: #4fe5ff;"></div><span> = Visited</span></br>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="box" style="background-color: #91ff87;"></div><span> = Shortest Path</span>
+                  </div>
+                  <div class="col-md-3">
                     <button class="btn btn-warning" onClick="clearBoard()" style="float: right;">Clear Board</button>
                   </div>
                 </div>

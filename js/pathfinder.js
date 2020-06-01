@@ -82,7 +82,7 @@ $('td').mouseenter(function() {
         start_i = parseInt($(this).attr('i'));
         start_j = parseInt($(this).attr('j'));
         board[start_i][start_j] = 'S';
-        console.log(board, start_i, start_j);
+        // console.log(board, start_i, start_j);
     }
     else if(isClickEnd){
         $(this).html($('#end'));
@@ -93,7 +93,7 @@ $('td').mouseenter(function() {
         end_i = parseInt($(this).attr('i'));
         end_j = parseInt($(this).attr('j'));
         board[end_i][end_j] = 'G';
-        console.log(board, end_i, end_j);
+        // console.log(board, end_i, end_j);
     }
 });
 
@@ -107,6 +107,11 @@ function clickCell(cell){
         board[$(cell).attr('i')][$(cell).attr('j')] = 'X';
         $(cell).css('background-color', '#5c5c5c');
         $(cell).attr('state', 'wall');
+    }
+    else if(board[$(cell).attr('i')][$(cell).attr('j')] == 'X'){
+        board[$(cell).attr('i')][$(cell).attr('j')] = 'E';
+        $(cell).css('background-color', '');
+        $(cell).attr('state', '');
     }
 }
 
@@ -233,7 +238,7 @@ function astar(){
                 }
                 else if(new_board[i][j] === 'E'){
                     var cell = $('td[i='+i+'][j='+j+']');
-                    $(cell).css('background-color', '#bafffc');
+                    // $(cell).css('background-color', '#bafffc');
                     // $(cell).attr('parent-i', curr[0]);
                     // $(cell).attr('parent-j', curr[1]);
                     $(cell).attr('state', 'checked');
